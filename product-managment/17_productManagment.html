@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Managment</title>
+
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+
+        h1{
+            text-align: center;
+            margin: 10px auto;
+        }
+        table{
+            width: 90%;
+            margin: 1% auto;
+            align-items: center;
+        }
+  
+
+        td{
+            padding: 10px;
+        }
+        tr,th,td,table,tbody {
+            border: 1px solid black;
+            border-collapse: collapse;
+
+        }
+        td img{
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            filter: drop-shadow();
+            
+            
+        }
+        button{
+            padding: 10px 24px;
+            border-radius: 5px;
+            background-color: green;
+            cursor: pointer;
+            margin: 10px 20px;
+            color: white;
+            border: none;
+        }
+
+        button:hover{
+            transform: scale(1.1);
+        }
+        .btn2{
+            background-color: red;
+        }
+       
+
+        #form{
+            width: 800px;
+            margin: 4% auto;
+        }
+
+        input{
+            width: 100%;
+            border-radius: 5px;
+            margin: 10px 0px;
+            padding: 10px;
+
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <caption><h1>Product Managment</h1></caption>
+    <table>
+        <tr>
+            <th >Id</th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>description</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th >Action</th>
+        </tr>
+        <tbody id="productTable">
+
+        </tbody>
+    </table>
+
+    <div id="form">
+        <input type="text" placeholder="Enter Product Name" id="name" >
+        <input type="text" placeholder="Enter Product description" id="description" >
+        <input type="text" placeholder="Enter Product Category" id="category" >
+        <input type="text" placeholder="Enter Product price" id="price" >
+        <input type="text" placeholder="Enter Product img url" id="image" >
+        <button onclick="addproduct()" id="editbtn">Add product</button>
+    </div>
+
+    <script src="product.js"></script>
+</body>
+
+</html>
