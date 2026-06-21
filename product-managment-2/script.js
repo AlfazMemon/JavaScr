@@ -41,7 +41,7 @@ const DisplayProduct = () =>{
             <td>${product.category}</td>
             <td>${product.price}</td>
             <td>
-            <button>Edit</button>
+            <button onclick="EditProduct(${product.id})">Edit</button>
             <button>Delete</button>
             </td>
         </tr>`;
@@ -52,6 +52,7 @@ const DisplayProduct = () =>{
     
 }
 
+    let editid = "";
 const addProduct = () =>{
 
     let name = document.getElementById('Name').value;
@@ -59,8 +60,31 @@ const addProduct = () =>{
     let category = document.getElementById('Category').value;
     let price = document.getElementById('Price').value;
     let image = document.getElementById('Image').value;
+    document.getElementById('editbtn').innerText = "Update Product";
 
-    let NewProduct = {
+    if(editid){
+    const product = products.find((p) => p.id === editid);
+
+    product.name = name;
+    product.description = description;
+    product.category = category;
+    product.price = price;
+    product.image = image;
+
+    alert("Product Updated Succefully");
+
+    editid = "";
+
+    DisplayProduct();
+
+    clear();
+    
+    
+        
+    }
+
+    else{
+        let NewProduct = {
         id:products.length+1,
         name,
         description,
@@ -72,6 +96,34 @@ const addProduct = () =>{
     products.push(NewProduct);
 
     DisplayProduct();
+    clear();
+    }
+
+}
+
+const EditProduct = (id) =>{
+    const product = products.find((p) => p.id === id);
+
+    editid = product.id;
+
+     document.getElementById('Name').value = product.name;
+    document.getElementById('Description').value = product.description;
+    document.getElementById('Category').value = product.category;
+    document.getElementById('Price').value = product.price;
+    document.getElementById('Image').value = product.image;
+    document.getElementById('editbtn').innerText = "Update Product";
+    
+
+
+}
+
+const clear = () =>{
+    let name = document.getElementById('Name').value = "";
+    let description = document.getElementById('Description').value = "";
+    let category = document.getElementById('Category').value = "";
+    let price = document.getElementById('Price').value = "";
+    let image = document.getElementById('Image').value = "";
+    document.getElementById('editbtn').innerText = "Add Product";
 
 }
 
