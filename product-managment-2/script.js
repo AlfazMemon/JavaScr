@@ -42,7 +42,7 @@ const DisplayProduct = () =>{
             <td>${product.price}</td>
             <td>
             <button onclick="EditProduct(${product.id})">Edit</button>
-            <button>Delete</button>
+            <button onclick="DeleteProduct(${product.id})">Delete</button>
             </td>
         </tr>`;
 
@@ -116,6 +116,14 @@ const EditProduct = (id) =>{
 
 
 }
+
+    const DeleteProduct = (id) =>{
+        const index = products.findIndex((idx) => idx.id === id);
+
+        products.splice(index,1);
+        confirm("Are you sure ? you wanted to delete this product");
+        DisplayProduct();
+    }
 
 const clear = () =>{
     let name = document.getElementById('Name').value = "";

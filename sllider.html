@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slider In Java Script</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+        }
+
+        .slider{
+            /* margin: 4% auto; */
+            display: flex;
+
+        }
+        .slide-data{
+            align-items: center;
+            display: flex;
+            gap: 100px;
+        }
+        .slide-left{
+            padding: 20px;
+        }
+        h1{
+            margin-bottom: 70px;
+        }
+        
+        .slide-left p{
+            width: 500px;
+            margin-bottom: 50px;
+            font-size: 18px;
+        }
+        .slide-left button{
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            background: rgb(0, 255, 60);
+            cursor: pointer;
+            color: white;
+        }
+        img{
+            width: 500px;
+            height: 500px;
+        }
+    </style>
+<body>
+
+    <div class="slider">
+        <button id="prevbtn"><i class="fa-solid fa-angle-left"></i></button>
+        <div id="slider">
+
+        </div>
+        <button id="nextbtn"><i class="fa-solid fa-angle-right"></i></button>
+    </div>
+
+    <script>
+
+
+
+        const slides = [
+            {
+                id: 1,
+                title: "Latest Smartphones",
+                description: "Discover the newest smartphones with advanced cameras, powerful processors, and stunning displays.",
+                button: "Shop Now",
+                image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9"
+            },
+            {
+                id: 2,
+                title: "Fashion Collection",
+                description: "Upgrade your style with trendy clothing, footwear, and accessories for every occasion.",
+                button: "Explore Collection",
+                image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8"
+            },
+            {
+                id: 3,
+                title: "Gaming Zone",
+                description: "Experience next-level gaming with high-performance laptops, consoles, and accessories.",
+                button: "Start Gaming",
+                image: "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8"
+            }
+        ];
+        let prevbtn = document.getElementById('prevbtn');
+        let slider = document.getElementById('slider');
+        let nextbtn = document.getElementById('nextbtn');
+
+        let slidecount = 0;
+
+        function DisplaySlide() {
+            slider.innerHTML = `
+                
+        <div class="slide-data">
+                <div class="slide-left">
+                <h1>${slides[slidecount].title}</h1>
+                <p>${slides[slidecount].description}</p>
+                <button>${slides[slidecount].button}</button>
+            </div>
+            <div class="slide-right">
+                <img src="${slides[slidecount].image}" alt="">
+            </div>
+        </div>
+                `
+        }
+
+        prevbtn.addEventListener('click',() =>{
+            slidecount = slidecount - 1;
+
+            if(slidecount < 0){
+                slidecount = 2;
+            }
+            DisplaySlide();
+
+        })
+
+        nextbtn.addEventListener('click',() =>{
+            slidecount = slidecount + 1;
+
+            if(slidecount > slides.length){
+                slidecount = 0;
+            }
+            DisplaySlide();
+        })
+
+        DisplaySlide();
+
+
+    </script>
+
+
+</body>
+
+</html>
