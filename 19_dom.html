@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dom In html</title>
+    <style>
+        img{
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwc4bU61Ov9V5qa-6fbLhWeIg_nCoBiqMAo2y6YsE1Ng&s=10" alt="" id="heroImg">
+    <button id="hero">Change Hero Img</button>
+
+    <script>
+        let hero = document.getElementById('hero');
+        hero.addEventListener('click',()=>{
+           let  heroImg = document.getElementById('heroImg').src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2vwK49DoK8BoRbJDowtg90Vtt9W5f4s12MNvCVUir-g&s=10";
+
+        })
+    </script>
+</body>
+</html>

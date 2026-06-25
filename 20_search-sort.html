@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Filter</title>
+
+    <style>
+        #search {
+            padding: 12px 15px;
+            width: 300px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            margin: 20px 10px;
+            transition: 0.3s;
+            
+        }
+
+        #search:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 8px rgba(79, 70, 229, 0.3);
+        }
+
+        #category,
+        #sort {
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            background: #fff;
+            cursor: pointer;
+            outline: none;
+            margin: 20px 10px;
+            transition: 0.3s;
+        }
+
+        #category:focus,
+        #sort:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 8px rgba(79, 70, 229, 0.3);
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f7fb;
+        }
+
+        #product-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .product-card {
+            width: 250px;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, .1);
+            transition: .3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .product-card h3,
+        .product-card p {
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" id="search" placeholder="Search Products">
+    <select name="category" id="category">
+        <option value="all">All</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Fashion">Fashion</option>
+        <option value="Furniture">Furniture</option>
+        <option value="Books">Books</option>
+        <option value="Sports">Sports</option>
+    </select>
+
+    <select name="sort" id="sort">
+        <option value="">sort by price</option>
+        <option value="low">Low to High</option>
+        <option value="high">High to low</option>
+    </select>
+
+    <div id="product-details"></div>
+
+    <script>
+        const products = [
+            {
+                id: 1,
+                name: "iPhone 15",
+                price: 79999,
+                category: "Electronics",
+                description: "Apple iPhone 15 with A16 Bionic chip and advanced camera system.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSI4VkTAvmhqHoIXaNSldpnWziFzsOYBhMBnclYxdNzFg&s=10"
+            },
+            {
+                id: 2,
+                name: "Samsung Galaxy S24",
+                price: 74999,
+                category: "Electronics",
+                description: "Flagship Samsung smartphone with AI-powered features.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuCkcQlUOdd8YKuddhEsp5CdZma0thXo9FKDFFOZv02g&s=10"
+            },
+            {
+                id: 3,
+                name: "Nike Air Max",
+                price: 5999,
+                category: "Fashion",
+                description: "Comfortable and stylish running shoes for daily wear.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTT6osyEiHiqKFSrpOx_H2ZnQRJO-UsOeSxmyY8vBf_4g&s=10"
+            },
+            {
+                id: 4,
+                name: "Levi's Denim Jacket",
+                price: 3499,
+                category: "Fashion",
+                description: "Classic blue denim jacket with premium fabric quality.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLWi4X0MIy8G6v7vnNE2hoZmgfn9xCqx6S_Me5BIDpSw&s=10"
+            },
+            {
+                id: 5,
+                name: "Wooden Study Table",
+                price: 8999,
+                category: "Furniture",
+                description: "Modern wooden study table with storage drawers.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmDN6Y0bWvBEcPrQa2yaoqLYfQG0J3ZJRakA_G-aQnRA&s=10"
+            },
+            {
+                id: 6,
+                name: "Office Chair",
+                price: 4999,
+                category: "Furniture",
+                description: "Ergonomic office chair with adjustable height.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREmdnLxrzcTOgvIZMEXTqeLBjHl1zgUCmfoUmv928JMw&s=10"
+            },
+            {
+                id: 7,
+                name: "The Alchemist",
+                price: 399,
+                category: "Books",
+                description: "Popular inspirational novel by Paulo Coelho.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_rzlNgAF-bc1yy0rwmY6HlDEBILJu_fHsKGoeW-_6FQ&s=10"
+            },
+            {
+                id: 8,
+                name: "Atomic Habits",
+                price: 499,
+                category: "Books",
+                description: "Best-selling self-improvement book by James Clear.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6r87CA6xDleTYfuPPhlklKggrConPEZTJf8jjrCAUEQ&s=10"
+            },
+            {
+                id: 9,
+                name: "Football",
+                price: 899,
+                category: "Sports",
+                description: "Professional quality football for outdoor matches.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjnzWcXScoUxeK0eC1iIltTtHpx-xlZf1m6FI_dvHfMQ&s=10"
+            },
+            {
+                id: 10,
+                name: "Cricket Bat",
+                price: 2499,
+                category: "Sports",
+                description: "Lightweight cricket bat suitable for leather ball games.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8LZnCkrimoPGHHhB8yjwLEM3tiso4N7pN0s9-b5vAlg&s=10"
+            }
+        ];
+
+        let productdetails = document.getElementById('product-details');
+        let searchInput = document.getElementById('search');
+        let categoryInput = document.getElementById('category');
+        let sortInput = document.getElementById('sort');
+
+        function DisplayProduct(data) {
+
+            productdetails.innerHTML = "";
+
+            data.forEach((product) => {
+                const card = document.createElement('div');
+                card.classList.add('product-card');
+
+                card.innerHTML = `
+                    <img src="${product.image}" alt="">
+                    <h3>${product.name}</h3>
+                    <p>₹${product.price}</p>
+                    <p>${product.description}</p>
+                    <p>${product.category}</p>
+                `
+
+                productdetails.appendChild(card);
+            }
+            );
+        }
+
+        function filterProduct() {
+            let filterData = [...products];
+
+            let searchValue = searchInput.value.toLowerCase();
+            let categoryValue = categoryInput.value;
+            let sortValue = sortInput.value;
+
+            filterData = filterData.filter((p) => {
+                return p.name.toLowerCase().includes(searchValue);
+            })
+
+            if (categoryValue !== 'all') {
+                filterData = filterData.filter(p => p.category == categoryValue)
+            }
+
+            if (sortValue === "low") {
+                filterData = filterData.sort((a, b) => a.price - b.price)
+            }
+
+            if (sortValue === "high") {
+                filterData = filterData.sort((a, b) => b.price - a.price)
+            }
+
+            DisplayProduct(filterData);
+        }
+
+        searchInput.addEventListener('input', filterProduct);
+        sortInput.addEventListener('change', filterProduct);
+        categoryInput.addEventListener('change', filterProduct);
+
+        DisplayProduct(products);
+
+
+
+    </script>
+</body>
+
+</html>
